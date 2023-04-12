@@ -1,126 +1,137 @@
-import Head from 'next/head';
-import Image from 'next/image';
-import { Inter } from 'next/font/google';
-import styles from '@/styles/Home.module.css';
+import { useState } from 'react';
 
-const inter = Inter({ subsets: ['latin'] });
+import cx from 'classnames';
+
+import { Container, OrderContainer } from '@/styles/home';
+
+import { FiMenu } from 'react-icons/fi';
+import { VscChromeClose } from 'react-icons/vsc';
+
+import BurgerImg from '@/assets/img/burger.png';
+import Order1Img from '@/assets/img/order1.png';
+import Order2Img from '@/assets/img/order2.png';
+import PeopleImg from '@/assets/img/people.png';
+
+import Image from 'next/image';
 
 export default function Home() {
+  const [toggle, setToggle] = useState(false);
+
+  const Order = ({ title, img }: { title: string; img: any }) => {
+    return (
+      <OrderContainer>
+        <Image src={img} alt={''} />
+        <button>
+          <p className="title">{title}</p>
+          <span>Pedir agora</span>
+        </button>
+      </OrderContainer>
+    );
+  };
+
   return (
-    <>
-      <Head>
-        <title>TypeScript starter for Next.js</title>
-        <meta
-          name="description"
-          content="TypeScript starter for Next.js that includes all you need to build amazing apps"
-        />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <main className={styles.main}>
-        <div className={styles.description}>
-          <p>
-            Get started by editing&nbsp;
-            <code className={styles.code}>src/pages/index.tsx</code>
-          </p>
-          <div>
-            <a
-              href="https://vercel.com?utm_source=typescript-nextjs-starter"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              By{' '}
-              <Image
-                src="/vercel.svg"
-                alt="Vercel Logo"
-                className={styles.vercelLogo}
-                width={100}
-                height={24}
-                priority
-              />
-            </a>
-          </div>
-        </div>
-
-        <div className={styles.center}>
-          <Image
-            className={styles.logo}
-            src="/next.svg"
-            alt="Next.js Logo"
-            width={180}
-            height={37}
-            priority
-          />
-          <div className={styles.thirteen}>
-            <Image
-              src="/thirteen.svg"
-              alt="13"
-              width={40}
-              height={31}
-              priority
+    <Container>
+      <div className="wrapper">
+        <nav>
+          <span className="logo">Burger heaven</span>
+          <div className={'menu ' + cx({ toggle })}>
+            <VscChromeClose
+              onClick={() => setToggle(false)}
+              className="close show-mobile"
+              size={30}
             />
+            <ul>
+              <li>Sobre</li>
+              <li>Menu</li>
+              <li className="button-color">Peça online</li>
+            </ul>
           </div>
-        </div>
+          <FiMenu
+            onClick={() => setToggle((state) => !state)}
+            className="menu-icon show-mobile"
+            size={40}
+          />
+        </nav>
 
-        <div className={styles.grid}>
-          <a
-            href="https://nextjs.org/docs?utm_source=typescript-nextjs-starter"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Docs <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Find in-depth information about Next.js features and&nbsp;API.
-            </p>
-          </a>
+        <h1>O HAMBÚRGUER ORGÂNICO FAVORITO DE NOVA YORK</h1>
+        <Image className="img-banner" src={BurgerImg} alt="" />
 
-          <a
-            href="https://nextjs.org/learn?utm_source=typescript-nextjs-starter"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Learn <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Learn about Next.js in an interactive course with&nbsp;quizzes!
-            </p>
-          </a>
+        <section>
+          <div className="banner">
+            <div className="left">
+              <span className="title">
+                o hambúrguer acima de todos os hambúrgueres
+              </span>
+            </div>
 
-          <a
-            href="https://vercel.com/templates?framework=next.js&utm_source=typescript-nextjs-starter"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Templates <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Discover and deploy boilerplate example Next.js&nbsp;projects.
-            </p>
-          </a>
+            <div className="right">
+              <span className="subtitle">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
+                nec ornare neque.
+              </span>
+              <button>Sobre nós</button>
+            </div>
+          </div>
+        </section>
 
-          <a
-            href="https://vercel.com/new?utm_source=typescript-nextjs-starter"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Deploy <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Instantly deploy your Next.js site to a shareable URL
-              with&nbsp;Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
-    </>
+        <section>
+          <div className="orders">
+            <Order title="batatas fritas com sal e vinagre" img={Order2Img} />
+            <Order title="sanduíche de frango crocante" img={Order1Img} />
+          </div>
+        </section>
+
+        <h2>“o melhor hambúrguer que já comi”</h2>
+
+        <Image src={PeopleImg} alt="" />
+
+        <h3>Peça online ou venha nos visitar hoje</h3>
+
+        <button
+          style={{ backgroundColor: '#D1EF53' }}
+          className="button-color auto"
+        >
+          Iniciar
+        </button>
+
+        <footer>
+          <ul className="menu-footer">
+            <li>
+              <p className="footer-logo">Burger</p>
+              <p className="footer-logo">Heaven</p>
+            </li>
+            <li>
+              <span className="footer-title">Mais</span>
+              <ul>
+                <li className="footer-links">Sobre</li>
+                <li className="footer-links">Menu</li>
+                <li className="footer-links">Locações</li>
+                <li className="footer-links">Privacidade</li>
+              </ul>
+            </li>
+            <li>
+              <span className="footer-title">Horas</span>
+              <ul>
+                <li className="footer-links">Aberto de</li>
+                <li className="footer-links">11AM até</li>
+                <li className="footer-links">11PM todos os dias</li>
+              </ul>
+            </li>
+            <li>
+              <span className="footer-title">Junte-se à nossa newsletter</span>
+              <div className="input-container">
+                <input type="text" />
+
+                <button type="submit">Enviar</button>
+              </div>
+            </li>
+          </ul>
+          <div className="footer">
+            <span>Copyright Burger Heaven</span>
+            <span>Privacy Policy</span>
+          </div>
+        </footer>
+      </div>
+    </Container>
   );
 }
